@@ -4,26 +4,17 @@ class Card:
         self.suit = suit
 
     def toString(self):
-        string = ""
-        if self.number > 10:
-            if self.number == 11:
-                string += "JACK"
-            if self.number == 12:
-                string += "QUEEN"
-            if self.number == 13:
-                string += "KING"
-        else:
-            string += str(self.number)
-
-        string += " of "
+        string = "card_"
+        string += str(self.number)
+        string += "_"
 
         if self.suit == 1:
-            string += "SPADES"
+            string += "spade.png"
         if self.suit == 2:
-            string += "HEARTS"
+            string += "heart.png"
         if self.suit == 3:
-            string += "CLUBS"
+            string += "clover.png"
         if self.suit == 4:
-            string += "DIAMONDS"
+            string += "diamond.png"
 
         return string
