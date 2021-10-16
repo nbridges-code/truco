@@ -21,6 +21,22 @@ class Player:
         self.__init__()
         return ret
 
+    def drop_card(self, index):
+        yup = []
+        count = 0
+        ret = self.myCards[0]
+        for i in range(0, 3):
+            if i != index:
+                yup.append(self.myCards[count])
+            else:
+                ret = self.myCards[count]
+            count = count + 1
+        self.myCards = yup
+        return ret
+
+    def get_cards(self):
+        return self.myCards
+
     def toString(self):
         for card in self.myCards:
             print(card.toString() + " ")
