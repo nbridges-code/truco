@@ -21,40 +21,47 @@ def main():
     game = GameState()
 
     def threaded_client(connection):
-        connection.send(str.encode('connected\nPlease enter a username:'))
-        input = connection.recv(2048).decode('utf-8')
-        game.newPlayer(input)
-        connection.send(str.encode("User " + input + " added"))
+        # connection.send(str.encode('Please enter a username:'))
+        username = connection.recv(2048).decode('utf-8')
+        game.newPlayer(username)
+        connection.send(str.encode("User " + username + " added\n"))
 
         global command
+        turnEndingCommand = False
         while True:
             data = connection.recv(2048)
             input = data.decode('utf-8')
             output = ""
             command = input.split(" ")[0]
             if command == "exit":
+                game.removePlayer(username)
                 connection.close()
                 exit()
             elif command == "help":
                 # print rules and/or full list of commands
                 output = '''
-                Commands:            
-                exit 
-                    - Close connection and exit client process
-                rec 
-                    - Check for any incoming messages
-                msg [recipient(s)]
-                    - Send a message
-                team
-                    - Print teammates and current winnings
-                table 
-                    - Print current pot and cards played by each player
-                truco [opponent]
-                    - Challenge a player with truco
-                hand
-                    - Print your current hand
-                use [number]
-                    - Use a card from your hand                
+Commands:            
+exit 
+    - Close connection and exit client process
+rec 
+    - Check for any incoming messages
+msg [recipient(s)] [text]
+    - Send a message
+team
+    - Print teammates and current winnings
+table 
+    - Print current pot and cards played by each player
+truco [opponent]
+    - Challenge a player with truco
+hand
+    - Print your current hand
+use [number]
+    - Use a card from your hand         
+host   
+    - If a user has not already claimed host, then this will make
+        the calling player the host. Print host's name
+start
+    - (Host Only) Start the game
                 '''
             elif command == "rec":
                 # recieve a message
@@ -72,7 +79,11 @@ def main():
                 output = ("challenging " + input.split(" ")[1] + "\n sike command not implemented yet")
             elif command == "hand":
                 # Print hand
-                output = ("command not implemented yet")
+                output = game.getPlayer(username).toString()
+            elif command == "host":
+                output = game.host(username)
+            elif command == "start":
+                output = game.gameStart(username)
             elif command == "use":
                 # Use a card
                 output = ("playing " + input.split(" ")[1] + "\n sike command not implemented yet")

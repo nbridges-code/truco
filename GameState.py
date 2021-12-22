@@ -11,17 +11,21 @@ class GameState:
     # Player methods
     def newPlayer(self, Id):
         self.players[Id] = Player(Id)
-        self.players[Id] += 1
+        self.playersCount += 1
 
     def removePlayer(self, Id):
         self.players.pop(Id)
+        self.playersCount -= 1
+
+    def getPlayer(self, Id):
+        return self.players[Id]
     
     # Game methods
-    def host(self, Id, password):
+    def host(self, Id):
         if self.hostId == "efnaksufhaksehfausdhfuae":
             # No one has claimed host, they get host
             self.hostId = Id
-            self.hostPassword = password
+        return "Host is " + self.hostId
 
     def gameStart(self, Id):
         # Authenticate host
@@ -30,7 +34,7 @@ class GameState:
 
         # Need 4 (or even amount) of playeres
         if self.playersCount != 4:
-            return "Do not have 4 players, aborting"
+            return "Have " + str(self.playersCount) + " instead of 4 players, aborting"
         
         # Hand in cards
         for i in self.players:

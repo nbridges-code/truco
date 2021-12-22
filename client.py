@@ -10,9 +10,13 @@ try:
 except socket.error as e:
     print(str(e))
 
+username = input("Please enter a username:")
+ClientSocket.send(str.encode(username))
 Response = ClientSocket.recv(1024)
+print(Response.decode('utf-8'))
+
 while True:
-    Input = input('Say Something: ')
+    Input = input('enter command (\"help\" for command usage): ')
     if Input == "exit":
         ClientSocket.close()
         exit()

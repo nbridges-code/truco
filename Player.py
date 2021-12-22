@@ -45,8 +45,9 @@ class Player:
         return self.myCards
 
     def toString(self):
+        myCards = ""
         for card in self.myCards:
-            print(card.toString() + " ")
+            myCards += card.toString() + " "
 
 
         # string = ""
