@@ -2,8 +2,15 @@ from Card import Card
 
 
 class Player:
-    def __init__(self):
+    def __init__(self, Id):
+        self.Id = Id
         self.myCards = []
+
+    def get_Id(self):
+        return self.Id
+
+    def set_Id(self, Id):
+        self.Id = Id
 
     # Anticipates a singular card
     def take_card(self, card):
