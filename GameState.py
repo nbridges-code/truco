@@ -25,6 +25,7 @@ class GameState:
         if self.hostId == "efnaksufhaksehfausdhfuae":
             # No one has claimed host, they get host
             self.hostId = Id
+
         return "Host is " + self.hostId
 
     def gameStart(self, Id):
@@ -36,13 +37,14 @@ class GameState:
         if self.playersCount != 4:
             return "Have " + str(self.playersCount) + " instead of 4 players, aborting"
         
-        # Hand in cards
+        # Hand out cards
         for i in self.players:
             for j in range(0, 3):
-                i.take_card(self.deck.draw())
+                self.players[i].take_card(self.deck.draw())
         return "Players have been dealt their cards"
 
 
+# *** Old code below, please don't delete yet ***
 
 # deck = Deck()
 # players = [Player(0), Player(1), Player(2), Player(3)]

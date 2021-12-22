@@ -4,6 +4,31 @@ from _thread import *
 
 from GameState import GameState
 
+USAGE = '''
+Commands:            
+exit 
+    - Close connection and exit client process
+rec 
+    - Check for any incoming messages
+msg [recipient(s)] [text]
+    - Send a message
+team
+    - Print teammates and current winnings
+table 
+    - Print current pot and cards played by each player
+truco [opponent]
+    - Challenge a player with truco
+hand
+    - Print your current hand
+use [number]
+    - Use a card from your hand         
+host   
+    - If a user has not already claimed host, then this will make
+        the calling player the host. Print host's name
+start
+    - (Host Only) Start the game
+                '''
+
 def main():
     ServerSocket = socket.socket()
     host = '127.0.0.1'
@@ -28,7 +53,7 @@ def main():
 
         global command
         turnEndingCommand = False
-        while True:
+        while not turnEndingCommand:
             data = connection.recv(2048)
             input = data.decode('utf-8')
             output = ""
@@ -39,30 +64,7 @@ def main():
                 exit()
             elif command == "help":
                 # print rules and/or full list of commands
-                output = '''
-Commands:            
-exit 
-    - Close connection and exit client process
-rec 
-    - Check for any incoming messages
-msg [recipient(s)] [text]
-    - Send a message
-team
-    - Print teammates and current winnings
-table 
-    - Print current pot and cards played by each player
-truco [opponent]
-    - Challenge a player with truco
-hand
-    - Print your current hand
-use [number]
-    - Use a card from your hand         
-host   
-    - If a user has not already claimed host, then this will make
-        the calling player the host. Print host's name
-start
-    - (Host Only) Start the game
-                '''
+                output = USAGE
             elif command == "rec":
                 # recieve a message
                 output = ("command not implemented yet")

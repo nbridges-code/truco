@@ -45,10 +45,10 @@ class Player:
         return self.myCards
 
     def toString(self):
-        myCards = ""
+        myCardsStr = ""
         for card in self.myCards:
-            myCards += card.toString() + " "
-
+            myCardsStr = myCardsStr + card.toString() + "\n"
+        return myCardsStr
 
         # string = ""
         # for card in self.myCards:
