@@ -16,5 +16,3 @@ Upon starting, the server is waiting for connections. When a client starts, they
 The server should do as little manipulation of the game itself as possible. It should only call methods from the GameState. The GameState class is a layer of abstraction to make less work on the server instance. 
 A big step in making the game easy to use is figuring out how to make the server send broadcasts to any connected client. 
 Something else that needs to get done is that some of the client commands should be allowed to run an arbitrary number of times each turn, and only commands like `use` should end a user's turn.
-
-Sorry this is kind of just a stream of conciousness, I am very tired
